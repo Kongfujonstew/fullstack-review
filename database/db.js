@@ -1,11 +1,10 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
-var repoSchema = mongoose.Schema({
+var repoSchema = new mongoose.Schema({
   username: String,
   repo: String,
-  url: String,
-  time: { type: Date, default: Date.now }
+  url: String
 });
 
 var Repo = mongoose.model('Repo', repoSchema);

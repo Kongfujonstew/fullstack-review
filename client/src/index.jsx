@@ -18,7 +18,7 @@ class App extends React.Component {
 
   search (term) {
     console.log(`${term} was searched`);
-    ajax.post(term);
+    ajax.get(term);
   }
 
   render () {

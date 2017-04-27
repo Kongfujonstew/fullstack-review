@@ -11,13 +11,15 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
-app.post('/repos/import', function (req, res) {
-  routes.postRequest(req, res);
+
+app.get('/repos/import/*', function (req, res) {
+  console.log('index get fired')
+  routes.getRequest(req, res);
 });
 
-app.get('/repos', function (req, res) {
-  routes.get(req, res);
-});
+// app.get('/repos', function (req, res) {
+//   routes.get(req, res);
+// });
 
 var port = 1128;
 

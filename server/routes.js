@@ -1,26 +1,39 @@
+const url = require('url');
+
 var request = require('request');
 var models = require('./models');
 
 // var db = Promise.promisifyAll(require('.db'));
 
 module.exports = {
-  postRequest: function(req, res) {
-    console.log('routes post fired, req.body: ', req.body)
+  getRequest: function(req, res) {
+    var searchTerm = req.url.slice(14);
 
+    // console.log('routes GET fired, userstring: ', userstring)
     //only works for single name username; must parse if username is more than one word;
 
     var query = {
       headers: {
         "User-Agent": "kongfujonstew" 
       },
-      url: `https://api.github.com/search/repositories?q=user:` + req.body.username
+      url: `https://api.github.com/search/repositories?q=user:` + searchTerm
     }
 
     request.get(query, function(err, response, body) {
       var results = JSON.parse(body).items;
-      // console.
 
-
+      results = results.map(function(result) {
+        result = {
+          username: result.owner.login,
+          repo: result.name,
+          url: result.archive_url
+        };
+        return result;
+      });
+      
+      results.forEach(function(result) {
+        models.insertOne(result);
+      })
 
       res.send(results);
     });

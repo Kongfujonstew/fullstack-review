@@ -1,17 +1,17 @@
-var Repo = require('../database/db.js').Repo;
+var Repo = require('../database/db.js');
 
 module.exports = {
-  insertOne: function(result) {
+  insertOne: function(result) { //turn this into createone model???
 
-    newRepo = {
-      username: result.owner.login,
-      repo: result.name,
-      url: result.archive_url,
-      time: new Date.now()
-      
-    }
+////////////////////////////////////////////
 
-    // Repo.save(newRepo)???
+    var newRepo = new Repo(result);
+
+    newRepo.save(function(err) {
+      if (err) {
+        console.log('db save error');
+      }
+    });
 
   }
 
