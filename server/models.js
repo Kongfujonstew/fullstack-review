@@ -1,7 +1,8 @@
 var Repo = require('../database/db.js');
+var db = require('mongodb');
 
 module.exports = {
-  insertOne: function(result) { //turn this into createone model???
+  insertOne: function(result) { 
 
 ////////////////////////////////////////////
 
@@ -13,8 +14,15 @@ module.exports = {
       }
     });
 
+  },
+
+  getAll: function(searchTerm) {
+    db.repos.find(searchTerm, function(err) {
+      if (err) {
+        console.log('db find error');
+      }
+    })
+
   }
-
-
 
 }

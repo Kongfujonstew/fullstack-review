@@ -1,13 +1,16 @@
-const url = require('url');
 
+const url = require('url');
 var request = require('request');
 var models = require('./models');
+var Promise = require('bluebird');
 
-// var db = Promise.promisifyAll(require('.db'));
+
+
 
 module.exports = {
   getRequest: function(req, res) {
     var searchTerm = req.url.slice(14);
+    io.sockets.emit('testpush', searchTerm);
 
     // console.log('routes GET fired, userstring: ', userstring)
     //only works for single name username; must parse if username is more than one word;
@@ -18,6 +21,7 @@ module.exports = {
       },
       url: `https://api.github.com/search/repositories?q=user:` + searchTerm
     }
+    ////////////////////////////////////////
 
     request.get(query, function(err, response, body) {
       var results = JSON.parse(body).items;
@@ -26,7 +30,7 @@ module.exports = {
         result = {
           username: result.owner.login,
           repo: result.name,
-          url: result.archive_url
+          url: result.html_url
         };
         return result;
       });
@@ -34,7 +38,6 @@ module.exports = {
       results.forEach(function(result) {
         models.insertOne(result);
       })
-
       res.send(results);
     });
 

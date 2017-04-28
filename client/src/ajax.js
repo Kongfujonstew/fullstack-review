@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var index = require('./index.jsx');
 
 // insert get request here
 module.exports = {
@@ -11,8 +12,9 @@ module.exports = {
       type: 'GET',
       contentType: 'application/json',
       dataType: 'json',
-      success: function(data) {
-        console.log('data ?received? ', data);
+      success: function(results) {
+        console.log('data received: ', results);
+        this.state.setState({repos: results});
       }
     });
   }

@@ -3,7 +3,7 @@ mongoose.connect('mongodb://localhost/fetcher');
 
 var repoSchema = new mongoose.Schema({
   username: String,
-  repo: String,
+  repo: { type: String, unique: true },
   url: String
 });
 

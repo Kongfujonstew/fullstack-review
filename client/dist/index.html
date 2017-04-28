@@ -2,8 +2,46 @@
 <html>
 <head>
   <title>Github Repo Fetcher</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <style>
+    body {
+      background-color: powderblue;
+      font-family: Roboto;
+      }
+    p { 
+      margin: 0;
+      padding: 0;
+     }
+    .repo {
+      margin: 5px;
+      color: red;
+      border: 2px solid grey;
+    }
+</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+  <script>
+    var socket = io();
+    // socket.on('testpush', function(msg) {
+    //   console.log(msg);
+    // })
+  </script>
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function() {
+      console.log('hello from jquery');
+      socket.emit('test', 'hello wolrd!');
+    })
+
+  </script>
 </head>
 <body>
+<ul id="messages"></ul>
+<form action="">
+  <input id="m" autocomplete="off" /><button>Send</button>
+</form>
 <div id="app"></div>
 <script type="text/javascript" src="bundle.js"></script>
 </body>
